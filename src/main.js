@@ -4,7 +4,9 @@ import "./registerServiceWorker";
 import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import $ from "jquery";
 import "normalize.css";
+import "./js/js.js"
 
 Vue.config.productionTip = false;
 new Vue({
