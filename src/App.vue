@@ -3,14 +3,12 @@
     <NavBar />
     <Sammary />
     <StaySafe />
-    <Footer />
   </div>
 </template>
 
 <script>
 import Sammary from "@/components/Sammary.vue";
 import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
 
 import StaySafe from "@/components/staySafe.vue";
 export default {
@@ -18,8 +16,7 @@ export default {
   components: {
     Sammary,
     NavBar,
-    Footer,
-    StaySafe,
+    StaySafe
   }
 };
 </script>
