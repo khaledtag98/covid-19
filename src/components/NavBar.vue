@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar shadow-lg w-25 test navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar shadow-lg w-25-mine test navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex">
@@ -42,17 +42,17 @@ export default {
   /* border-bottom-right-radius: 80%;
   border-bottom-left-radius: 80%; */
   height: 60px;
-  
+
   z-index: 10000;
 }
 .img-fluid-mine {
   width: 55px;
   -webkit-transform: scaleX(-1);
-  transform: scaleX(-1)
+  transform: scaleX(-1);
 }
-p{
+p {
   font-size: 13px;
   font-weight: 600;
-  color:#ff5e3a;
+  color: #ff5e3a;
 }
 </style>

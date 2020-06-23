@@ -61,6 +61,18 @@ ul {
   font-size: 16px !important;
   align-items: center;
   color: #818991 !important;
+  outline: none !important;
+  background-color: #fff !important;
+}
+.v-select-toggle:hover {
+  box-shadow: 0 0px 1.7px rgba(0, 0, 0, 0.02), 0 0px 4.1px rgba(0, 0, 0, 0.028),
+    0 0px 7.8px rgba(0, 0, 0, 0.035), 0 0px 13.8px rgba(0, 0, 0, 0.042),
+    0 0px 25.9px rgba(0, 0, 0, 0.05), 0 0px 62px rgba(0, 0, 0, 0.07);
+}
+.v-select-toggle:focus {
+  box-shadow: 0 0px 1.7px rgba(0, 0, 0, 0.02), 0 0px 4.1px rgba(0, 0, 0, 0.028),
+    0 0px 7.8px rgba(0, 0, 0, 0.035), 0 0px 13.8px rgba(0, 0, 0, 0.042),
+    0 0px 25.9px rgba(0, 0, 0, 0.05), 0 0px 62px rgba(0, 0, 0, 0.07);
 }
 .v-dropdown-container ul {
   font-size: 14px !important;

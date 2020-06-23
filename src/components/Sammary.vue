@@ -53,7 +53,7 @@ export default {
     return {
       select: null,
       list: [],
-      labelTitle: "Pick or search",
+      labelTitle: "search ...",
       todayResponse: [],
       selectedCountryToday: "",
       selectedCountryYesterday: "",

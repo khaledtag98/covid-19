@@ -2,7 +2,6 @@
   <div class="col-lg-4 col-md-6 col-12 my-4 fade-mine">
     <div class="cart shadow-sm rounded-lg">
       <div class="cart-inner" v-if="dataReceived">
-        
         <div v-if="isEgy">
           <div v-if="TotalCart">
             <div class="head text-center text-muted" v-text="header"></div>
@@ -27,7 +26,12 @@
             </div>
           </div>
         </div>
-        <EgyTheme v-else :header="header" :todayDataInfo="todaySelectdCountry" :yesterdayDataInfo="yesterdaySelectdCountry"/>
+        <EgyTheme
+          v-else
+          :header="header"
+          :todayDataInfo="todaySelectdCountry"
+          :yesterdayDataInfo="yesterdaySelectdCountry"
+        />
       </div>
 
       <div class="cart-inner" v-if="!dataReceived">
@@ -35,7 +39,7 @@
           <div class="head text-center text-muted mb-3" v-text="header"></div>
           <p
             class="w-100 text-center mb-sm-1"
-            :class="header == 'Total recovered' ? 'text-success' : header == 'Total Deaths' ? 'text-danger' : 'new-cases'"
+            :class="header == 'Total recovered' ? 'text-recovered' : header == 'Total Deaths' ? 'text-Deaths' : 'new-cases'"
           >{{todaydayWorldWidey}}</p>
         </div>
         <div v-else>
@@ -147,6 +151,16 @@
   display: flex;
   align-items: center;
 }
+.text-recovered {
+  color: #11c019;
+  font-weight: 600;
+  font-size: 22px;
+}
+.text-Deaths {
+  color: #dc3545;
+  font-weight: 600;
+  font-size: 22px;
+}
 /* @media (min-width: 768px) and (max-width: 992px) {
   .cart .cart-inner {
     padding: 10px 10px;
@@ -157,7 +171,7 @@
 import EgyTheme from "@/components/EgyTheme.vue";
 // import $ from "jquery";
 export default {
-  components:{
+  components: {
     EgyTheme
   },
   props: [
@@ -176,8 +190,7 @@ export default {
       difference: 0,
       todayVal: "",
       yesterdayVal: "",
-      notUpdated: false,
-      
+      notUpdated: false
     };
   },
   computed: {

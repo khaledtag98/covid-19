@@ -9,9 +9,9 @@ export default new Vuex.Store({
         isEgy: true,
     },
     mutations: {
-        toggleyisEgy(state) {
-            state.isEgy = !state.isEgy
-        }
+        // toggleyisEgy(state) {
+        //     state.isEgy = !state.isEgy
+        // }
     },
     actions: {},
     modules: {}
