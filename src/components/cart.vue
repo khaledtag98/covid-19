@@ -4,8 +4,11 @@
       <div class="cart-inner" v-if="dataReceived">
         <div v-if="isEgy">
           <div v-if="TotalCart">
-            <div class="head text-center text-muted" v-text="header"></div>
-            <p class="new-cases text-center">{{todaySelectdCountry}}</p>
+            <div class="head text-center mb-3 text-muted" v-text="header"></div>
+            <p
+              :class="header == 'Total recovered' ? 'text-recovered' : header == 'Total Deaths' ? 'text-Deaths' : 'new-cases'"
+              class="mb-sm-1 text-center"
+            >{{todaySelectdCountry}}</p>
           </div>
           <div v-else>
             <div class="head text-muted" v-text="header"></div>
@@ -205,12 +208,6 @@ export default {
     isEgy() {
       return this.$store.state.isEgy;
     }
-    // divID: function() {
-    //   return this.divId;
-    // },
-    // arrowID: function() {
-    //   return this.arrowId;
-    // }
   },
   mounted: function() {
     this.test();

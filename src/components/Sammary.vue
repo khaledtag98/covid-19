@@ -131,9 +131,9 @@ export default {
   mounted: function() {
     let vm = this;
     vm.query();
-    // setInterval(function() {
-    //   vm.query()
-    // }, 10000);
+    setInterval(function() {
+      vm.query()
+    }, 9000);
   },
   watch: {
     select: function() {
