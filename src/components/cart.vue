@@ -1,0 +1,232 @@
+<template>
+  <div class="col-lg-4 col-md-6 col-12 my-4 fade-mine">
+    <div class="cart shadow-sm rounded-lg">
+      <div class="cart-inner" v-if="dataReceived">
+        
+        <div v-if="isEgy">
+          <div v-if="TotalCart">
+            <div class="head text-center text-muted" v-text="header"></div>
+            <p class="new-cases text-center">{{todaySelectdCountry}}</p>
+          </div>
+          <div v-else>
+            <div class="head text-muted" v-text="header"></div>
+            <div class="info">
+              <div class="eeer">
+                <p class="new-cases">{{todaySelectdCountry}}</p>
+                <span :id="divId">
+                  <img :id="arrowId" class="arrow" :src="Arrow" alt />
+                  {{ notUpdated ? 'not updated' : changeTracker(todaySelectdCountry ,yesterdaySelectdCountry)}}
+                </span>
+              </div>
+              <div>
+                <p class="yesterday-cases text-muted">
+                  Yesterday cases
+                  <span class="d-block">{{yesterdaySelectdCountry}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <EgyTheme v-else :header="header" :todayDataInfo="todaySelectdCountry" :yesterdayDataInfo="yesterdaySelectdCountry"/>
+      </div>
+
+      <div class="cart-inner" v-if="!dataReceived">
+        <div v-if="TotalCart">
+          <div class="head text-center text-muted mb-3" v-text="header"></div>
+          <p
+            class="w-100 text-center mb-sm-1"
+            :class="header == 'Total recovered' ? 'text-success' : header == 'Total Deaths' ? 'text-danger' : 'new-cases'"
+          >{{todaydayWorldWidey}}</p>
+        </div>
+        <div v-else>
+          <div class="head text-muted" v-text="header"></div>
+          <div class="info">
+            <div class="eeer">
+              <p class="new-cases">{{todaydayWorldWidey}}</p>
+              <span :id="divId">
+                <img :id="arrowId" class="arrow" :src="Arrow" alt />
+                {{ notUpdated ? 'not updated' : changeTracker(todaydayWorldWidey ,yesterdayWorldWidey)}}
+              </span>
+            </div>
+
+            <div>
+              <p class="yesterday-cases text-muted">
+                Yesterday cases
+                <span class="d-block">{{yesterdayWorldWidey}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+.cart {
+  background-color: white;
+}
+.cart .cart-inner {
+  padding: 10px 30px;
+}
+.cart-inner .head {
+  font-size: 14px;
+  font-weight: 600;
+}
+.loading {
+  position: relative;
+  height: 18px;
+  margin-bottom: 4px;
+  border-radius: 6.5px;
+  background-color: #dddddd;
+  overflow: hidden;
+}
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 0) 0%,
+    rgb(236, 236, 236) 50%,
+    rgba(230, 134, 0, 0) 100%
+  );
+  animation: shine-lines 1s infinite linear;
+}
+@keyframes shine-lines {
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.show-data {
+  animation: fadein 1s;
+}
+.cart-inner .info {
+  display: flex;
+  height: 54px;
+  justify-content: space-between;
+}
+.cart-inner .new-cases {
+  display: inline-block;
+  color: #d22023;
+  font-weight: 500;
+  vertical-align: baseline;
+  font-size: 25px;
+}
+.cart-inner .info .yesterday-cases {
+  font-size: 13px;
+}
+.cart-inner .info .yesterday-cases span {
+  color: black;
+  font-size: 16px;
+}
+.info span {
+  font-size: 12px;
+  font-weight: 700;
+  vertical-align: baseline;
+  margin-left: 5px;
+}
+.arrow {
+  width: 13px;
+  height: 13px;
+  vertical-align: middle;
+}
+.eeer {
+  display: flex;
+  align-items: center;
+}
+/* @media (min-width: 768px) and (max-width: 992px) {
+  .cart .cart-inner {
+    padding: 10px 10px;
+  }
+} */
+</style>
+<script>
+import EgyTheme from "@/components/EgyTheme.vue";
+// import $ from "jquery";
+export default {
+  components:{
+    EgyTheme
+  },
+  props: [
+    "dataReceived",
+    "todaySelectdCountry",
+    "yesterdaySelectdCountry",
+    "todaydayWorldWidey",
+    "yesterdayWorldWidey",
+    "header",
+    "divId",
+    "arrowId"
+  ],
+  data() {
+    return {
+      Arrow: "",
+      difference: 0,
+      todayVal: "",
+      yesterdayVal: "",
+      notUpdated: false,
+      
+    };
+  },
+  computed: {
+    TotalCart: function() {
+      if (this.header == "Total Deaths" || this.header == "Total recovered") {
+        return true;
+      } else return false;
+    },
+    isReady() {
+      return this.$store.state.isReady;
+    },
+    isEgy() {
+      return this.$store.state.isEgy;
+    }
+    // divID: function() {
+    //   return this.divId;
+    // },
+    // arrowID: function() {
+    //   return this.arrowId;
+    // }
+  },
+  mounted: function() {
+    this.test();
+  },
+  methods: {
+    changeTracker: function(newVal, oldVal) {
+      this.todayVal = newVal;
+      this.yesterdayVal = oldVal;
+      this.difference = newVal - oldVal;
+      return Math.abs(this.difference);
+    },
+    test: function() {
+      this.notUpdated = false;
+      let test = document.querySelector("#" + this.divId);
+      if (this.todayVal < this.yesterdayVal && this.todayVal != 0) {
+        test.style.color = "#32e4cd";
+        this.Arrow = "/assets/arrowDown.svg";
+      } else if (this.todayVal > this.yesterdayVal && this.todayVal != 0) {
+        test.style.color = "#ff5e3a";
+        this.Arrow = "/assets/arrowUp.svg";
+      } else if (this.todayVal === 0) {
+        this.notUpdated = true;
+      }
+    }
+  },
+  watch: {
+    dataReceived: function() {
+      this.test();
+    }
+  }
+};
+</script>

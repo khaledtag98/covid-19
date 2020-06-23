@@ -1,72 +1,150 @@
 <template>
-  <div class="hello">
+  <section>
+    <Hero :totalCases="WorldWideToday.cases" v-if="WorldWideToday" />
+    <div class="header-loading" v-else>
+      <div class="inner-loading"></div>
+    </div>
     <div class="container">
-      <div class="row">
-        <p>
-          <span></span>
-        </p>
-      </div>
       <div class="row my-5">
-        <div class="col-4 m-auto">
+        <div class="col-md-4 col-sm-6 col-12 m-auto">
           <v-select v-model="select" :searchable="true" :options="list" :labelTitle="labelTitle" />
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4 my-4">
+
+      <button
+        v-if="selectedCountryToday && selectedCountryToday.country == 'Egypt'"
+        class="btn btn-primary"
+        @click="toggleyisEgy()"
+      >Egypt theme</button>
+      <cartContainer v-if="isReady" />
+
+      <div v-else class="row">
+        <div v-for="index in 6" :key="index" class="col-md-4 col-sm-6 col-12 my-4 fade-mine">
           <div class="cart shadow-sm rounded-lg">
-            <div class="cart-inner" v-if="selectedCountryToday">
-              <div class="head text-muted">New cases</div>
-              <div class="info">
-                <div class="eeer">
-                  <p class="new-cases">{{selectedCountryToday.todayCases}}</p>
-                  <span id="dev">
-                    <img class="arrow" :src="Arrow" alt />
-                    {{changeTracker(selectedCountryToday.todayCases ,selectedCountryYesterday.todayCases)}}
-                  </span>
-                </div>
-                <div>
-                  <p class="yesterday-cases text-muted">
-                    Yesterday cases
-                    <span class="d-block">{{selectedCountryYesterday.todayCases}}</span>
-                  </p>
-                </div>
+            <div class="cart-inner">
+              <div class="loading mb-3"></div>
+              <div class="mb-2">
+                <div class="loading w-75"></div>
               </div>
-            </div>
-            <div class="cart-inner" v-else-if="isReady">
-              <div class="head text-muted">New cases</div>
-              <div class="info">
-                <div class="eeer">
-                  <p class="new-cases">{{WorldWide.todayCases}}</p>
-                  <span id="dev" v-if="WorldWide">
-                    <img class="arrow" :src="Arrow" alt />
-                    {{changeTracker(WorldWide.todayCases ,WorldWideYesterday.todayCases)}}
-                  </span>
-                </div>
-                <div>
-                  <p class="yesterday-cases text-muted">
-                    Yesterday cases
-                    <span class="d-block">{{WorldWideYesterday.todayCases}}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div v-if="!isReady">
-              <div class="cart-inner">
-                <div class="loading mb-3"></div>
-                <div class="mb-2">
-                  <div class="loading w-75"></div>
-                </div>
-                <div class="mb-2">
-                  <div class="loading w-50"></div>
-                </div>
+              <div class="mb-2">
+                <div class="loading w-50"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
+
+<script>
+import Hero from "@/components/Hero.vue";
+import cartContainer from "@/components/cartContainer.vue";
+import VSelect from "@alfsnd/vue-bootstrap-select";
+import axios from "axios";
+export default {
+  name: "Sammary",
+  components: {
+    VSelect,
+    Hero,
+    cartContainer
+  },
+  data() {
+    return {
+      select: null,
+      list: [],
+      labelTitle: "Pick or search",
+      todayResponse: [],
+      selectedCountryToday: "",
+      selectedCountryYesterday: "",
+      WorldWideToday: "",
+      WorldWideYesterday: "",
+      yesterdayResponse: "",
+      flag: null
+    };
+  },
+  computed: {
+    isReady() {
+      return this.$store.state.isReady;
+    },
+    isEgy() {
+      return this.$store.state.isEgy;
+    }
+  },
+  methods: {
+    toggleyisEgy:function(){
+      this.$store.commit('toggleyisEgy');
+    },
+    displayCountryToday: function() {
+      let obj = this.todayResponse.find(o => o.country === this.select);
+      return obj;
+    },
+    displayCountryYesterday: function() {
+      let obj = this.yesterdayResponse.find(o => o.country === this.select);
+      return obj;
+    },
+    query: function() {
+      let vm = this;
+      vm.$store.state.isReady = false;
+      axios
+        .get("https://disease.sh/v2/countries?")
+        .then(Response => {
+          vm.todayResponse = Response.data;
+
+          let length = vm.todayResponse.length;
+          for (var i = 0; i < length; i++) {
+            vm.list.push(vm.todayResponse[i].country);
+          }
+          axios
+            .get("https://disease.sh/v2/countries?yesterday=true")
+            .then(Response => {
+              vm.yesterdayResponse = Response.data;
+              axios
+                .get("https://disease.sh/v2/all")
+                .then(Response => {
+                  vm.WorldWideToday = Response.data;
+
+                  axios
+                    .get("https://disease.sh/v2/all?yesterday=true")
+                    .then(Response => {
+                      vm.WorldWideYesterday = Response.data;
+
+                      vm.$store.state.isReady = true;
+                    })
+                    .catch(function(error) {
+                      alert(error);
+                    });
+                })
+                .catch(function(error) {
+                  alert(error);
+                });
+            })
+            .catch(function(error) {
+              alert(error);
+            });
+        })
+        .catch(function(error) {
+          alert(error);
+        });
+    }
+  },
+  mounted: function() {
+    let vm = this;
+    vm.query();
+    // setInterval(function() {
+    //   vm.query()
+    // }, 10000);
+  },
+  watch: {
+    select: function() {
+      this.selectedCountryToday = this.displayCountryToday();
+      this.selectedCountryYesterday = this.displayCountryYesterday();
+      // this.flag = this.selectedCountry.countryInfo.flag;
+    }
+  }
+};
+</script>
+
 
 <style scoped>
 .cart {
@@ -74,10 +152,6 @@
 }
 .cart .cart-inner {
   padding: 10px 30px;
-}
-.cart-inner .head {
-  font-size: 14px;
-  font-weight: 600;
 }
 .loading {
   position: relative;
@@ -109,162 +183,32 @@
     transform: translateX(100%);
   }
 }
-.cart-inner .info {
-  display: flex;
-  height: 54px;
-  justify-content: space-between;
-}
-.cart-inner .info .new-cases {
-  display: inline-block;
-  color: #d22023;
-  font-weight: 500;
-  vertical-align: baseline;
-  font-size: 25px;
-}
-.cart-inner .info .yesterday-cases {
-  font-size: 13px;
-}
-.cart-inner .info .yesterday-cases span {
-  color: black;
-  font-size: 16px;
-}
-.info span {
-  font-size: 12px;
-  font-weight: 700;
-  vertical-align: baseline;
-  margin-left: 5px;
-}
-.arrow {
-  width: 13px;
-  height: 13px;
-  vertical-align: middle;
-}
-.eeer {
+.header-loading {
+  height: 218px;
+  width: 100%;
+
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.inner-loading {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  animation: loading 2s infinite;
+}
+@keyframes loading {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.13);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+  }
+  80% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 40px rgba(0, 0, 0, 0);
+  }
 }
 </style>
- <!-- v-if="selectedCountry"> -->
-<script>
-import VSelect from "@alfsnd/vue-bootstrap-select";
-import axios from "axios";
-import $ from "jquery";
-export default {
-  name: "HelloWorld",
-  components: {
-    VSelect
-  },
-  data() {
-    return {
-      select: null,
-      list: [],
-      labelTitle: "Pick or search",
-      isReady: false,
-      todayResponse: [],
-      selectedCountryToday: null,
-      selectedCountryYesterday: null,
-      yesterdayResponse: null,
-      WorldWide: null,
-      flag: null,
-      Arrow: ""
-      // isUpdated:false,
-    };
-  },
-  methods: {
-    displayCountryToday: function() {
-      let obj = this.todayResponse.find(o => o.country === this.select);
-      return obj;
-    },
-    displayCountryYesterday: function() {
-      let obj = this.yesterdayResponse.find(o => o.country === this.select);
-      return obj;
-    },
-    changeTracker: function(newVal, oldVal) {
-      if (newVal > oldVal) {
-        $("#dev").removeClass("badge-warning badge");
-        $( "img.arrow" ).removeClass("d-none");
-        $("#dev").css("color", "#ff5e3a");
-        this.Arrow = "/assets/arrowUp.svg";
-        return newVal - oldVal;
-      } else if (newVal == oldVal) {
-        $("#dev").removeClass("badge-warning badge");
-        $("#dev").css("color", "#32e4cd");
-        $( "img.arrow" ).addClass("d-none");
-        return '0' ;
-      } else if (newVal == 0 && newVal != oldVal) {
-        $("#dev").addClass("badge-warning badge");
-        $( "img.arrow" ).addClass("d-none");
-        $("#dev").css("color", "#000");
-        // $("#dev").css("font-size", "10px");
-        let msg = "Not Updated";
-        return msg;
-      } else {
-        $("#dev").removeClass("badge-warning badge");
-        $( "img.arrow" ).removeClass("d-none");
-        $("#dev").css("color", "#32e4cd");
-        this.Arrow = "/assets/arrowDown.svg";
-        return oldVal - newVal;
-      }
-    },
-    query: function() {
-      let vm = this;
-      vm.isReady = false;
-      axios
-        .get("https://disease.sh/v2/countries?")
-        .then(Response => {
-          vm.todayResponse = Response.data;
-          let length = vm.todayResponse.length;
-          for (var i = 0; i < length; i++) {
-            vm.list.push(vm.todayResponse[i].country);
-          }
-          axios
-            .get("https://disease.sh/v2/countries?yesterday=true")
-            .then(Response => {
-              vm.yesterdayResponse = Response.data;
-              axios
-                .get("https://disease.sh/v2/all")
-                .then(Response => {
-                  vm.WorldWide = Response.data;
-                  axios
-                    .get("https://disease.sh/v2/all?yesterday=true")
-                    .then(Response => {
-                      vm.WorldWideYesterday = Response.data;
-                      vm.isReady = true;
-                    })
-                    .catch(function(error) {
-                      alert(error);
-                    });
-                })
-                .catch(function(error) {
-                  alert(error);
-                });
-            })
-            .catch(function(error) {
-              alert(error);
-            });
-        })
-        .catch(function(error) {
-          alert(error);
-        });
-    }
-  },
-  mounted: function() {
-    let vm = this;
-    vm.query();
-    // setInterval(function() {
-    //   vm.query()
-    // }, 5000);
-  },
-  watch: {
-    select: function() {
-      this.selectedCountryToday = this.displayCountryToday();
-      this.selectedCountryYesterday = this.displayCountryYesterday();
-      // this.flag = this.selectedCountry.countryInfo.flag;
-    }
-  }
-};
-</script>
-
-
-// #32e4cd
-// #ff5e3a
