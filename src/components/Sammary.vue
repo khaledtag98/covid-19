@@ -133,7 +133,7 @@ export default {
     vm.query();
     setInterval(function() {
       vm.query()
-    }, 600000);
+    }, 10000);
   },
   watch: {
     select: function() {
