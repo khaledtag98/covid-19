@@ -33,17 +33,7 @@
       :todaydayWorldWidey="this.$parent.WorldWideToday.todayCases"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.todayCases"
     />
-    <Cart
-      :divId="divId4"
-      :arrowId="arrowId4"
-      :header="Header4"
-      :dataReceived="this.$parent.selectedCountryToday"
-      :todaySelectdCountry="this.$parent.selectedCountryToday.deaths"
-      :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.deaths"
-      :WorldWidey="this.$parent.WorldWideToday"
-      :todaydayWorldWidey="this.$parent.WorldWideToday.deaths"
-      :yesterdayWorldWidey="this.$parent.WorldWideYesterday.deaths"
-    />
+
     <Cart
       :divId="divId6"
       :arrowId="arrowId6"
@@ -56,6 +46,17 @@
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.cases"
     />
     <Cart
+      :divId="divId4"
+      :arrowId="arrowId4"
+      :header="Header4"
+      :dataReceived="this.$parent.selectedCountryToday"
+      :todaySelectdCountry="this.$parent.selectedCountryToday.deaths"
+      :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.deaths"
+      :WorldWidey="this.$parent.WorldWideToday"
+      :todaydayWorldWidey="this.$parent.WorldWideToday.deaths"
+      :yesterdayWorldWidey="this.$parent.WorldWideYesterday.deaths"
+    />
+    <Cart
       :divId="divId5"
       :arrowId="arrowId5"
       :header="Header5"
@@ -66,7 +67,6 @@
       :todaydayWorldWidey="this.$parent.WorldWideToday.recovered"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.recovered"
     />
-    
   </div>
 </template>
 

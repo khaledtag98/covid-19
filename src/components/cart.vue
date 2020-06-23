@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-4 col-md-6 col-12 my-4 fade-mine">
+  <div class="col-lg-4 col-md-6 col-12 my-4-mine fade-mine">
     <div class="cart shadow-sm rounded-lg">
       <div class="cart-inner" v-if="dataReceived">
         <div v-if="isEgy">
@@ -78,6 +78,10 @@
 .cart-inner .head {
   font-size: 14px;
   font-weight: 600;
+}
+.my-4-mine {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
 }
 .loading {
   position: relative;
@@ -169,10 +173,16 @@
     padding: 10px 10px;
   }
 } */
+@media (max-width: 768px) {
+  .my-4-mine {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
 </style>
 <script>
 import EgyTheme from "@/components/EgyTheme.vue";
-// import $ from "jquery";
+import $ from "jquery";
 export default {
   components: {
     EgyTheme
@@ -193,7 +203,8 @@ export default {
       difference: 0,
       todayVal: "",
       yesterdayVal: "",
-      notUpdated: false
+      notUpdated: false,
+      width:window.innerWidth,
     };
   },
   computed: {
@@ -211,8 +222,42 @@ export default {
   },
   mounted: function() {
     this.test();
+    this.smallCart();
   },
   methods: {
+    smallCart: function() {
+      if (window.matchMedia("(max-width: 786px)").matches) {
+        $(".text-recovered")
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .addClass("col-6")
+          .removeClass("col-12");
+        $(".text-Deaths")
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .addClass("col-6")
+          .removeClass("col-12");
+      } else {
+        $(".text-recovered")
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .addClass("col-12")
+          .removeClass("col-6");
+        $(".text-Deaths")
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .addClass("col-12")
+          .removeClass("col-6");
+      }
+    },
     changeTracker: function(newVal, oldVal) {
       this.todayVal = newVal;
       this.yesterdayVal = oldVal;
@@ -236,7 +281,7 @@ export default {
   watch: {
     dataReceived: function() {
       this.test();
-    }
+    },
   }
 };
 </script>
