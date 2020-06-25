@@ -5,8 +5,8 @@ import store from "./store/index";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "normalize.css";
-import "./js/js.js"
-
+import "./js/js.js";
+import "./icons.js";
 Vue.config.productionTip = false;
 new Vue({
     store,

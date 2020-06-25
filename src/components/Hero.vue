@@ -1,8 +1,7 @@
 <template>
   <section class="hero">
     <p class="hero-head text-center mt-5">
-      Lived-
-      <span>19</span>
+      Livid-<span>19</span>
     </p>
     <p class="hero-slogan text-center mt-1">
       <span>Real Time</span> Update

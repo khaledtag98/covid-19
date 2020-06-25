@@ -1,48 +1,81 @@
 <template>
   <section>
-    <nav v-if="!isMobile" class="navbar shadow-lg NavBar-top">
-      <div class="container">
-        <div class="d-flex justify-content-between w-100">
-          <div class="d-flex">
-            <img src="/img/logo-corona.svg" class="img-fluid-mine" alt />
-            <p class="align-self-center ml-1">Stay_Safe</p>
-          </div>
-
-          <div class="live">
-            <div class="live-circle d-inline-block mr-1"></div>
-            <span class="text-muted">Live</span>
-          </div>
-        </div>
+    <nav v-if="!isMobile()" id="act" class="d-flex justify-content-between NavBar-top">
+      <div
+        @click="checkSearch()"
+        :class="{'active-top':searchAcitve}"
+        class="nb search-right-top w-50 d-flex justify-content-center align-items-center"
+      >
+        <div class="content">Search</div>
+      </div>
+      <div
+        @click="checkInfo()"
+        :class="{'active-top':infoAcitve}"
+        class="nb info-left-top w-50 d-flex justify-content-center align-items-center"
+      >
+        <div class="content">Info</div>
       </div>
     </nav>
-    <nav v-else class="navbar shadow-lg NavBar-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-4">
-            Global
-          </div>
-          <div class="col-4">
-            sreach
-          </div>
-          <div class="col-4">
-            info
-          </div>
-        </div>
+    <div v-else id="act" class="d-flex justify-content-between NavBar-bottom">
+      <div
+        @click="checkSearch()"
+        :class="{'active':searchAcitve}"
+        class="nb search-right w-50 d-flex justify-content-center align-items-center"
+      >
+        <div class="content">Search</div>
       </div>
-    </nav>
+      <div
+        @click="checkInfo()"
+        :class="{'active':infoAcitve}"
+        class="nb info-left w-50 d-flex justify-content-center align-items-center"
+      >
+        <div class="content text-center"><fa-icon :icon="['fas','info']" /><span class="d-block">info</span></div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
+// import $ from "jquery";
 export default {
   name: "NavBar",
-  data(){
-    return{
+  data() {
+    return {
 
+    };
+  },
+  computed:{
+    searchAcitve(){
+      return this.$store.state.searchAcitve;
+    },
+    infoAcitve(){
+     return this.$store.state.infoAcitve;
     }
   },
-  methods:{
-    isMobile:false,
+  mounted: function() {},
+  methods: {
+    checkSearch:function(){
+      this.$store.commit('checkSearch')
+    },
+    checkInfo:function(){
+      this.$store.commit('checkInfo')
+    },
+    isMobile:function(){
+      if(window.matchMedia("(max-width: 786px)").matches)
+      {
+        return true;
+      }
+      else return false;
+    },
+    
+    // checkSearch: function() {
+    //   this.searchAcitve = true;
+    //   this.infoAcitve = false;
+    // },
+    // checkInfo: function() {
+    //   this.searchAcitve = false;
+    //   this.infoAcitve = true;
+    // }
   }
 };
 </script>
@@ -66,20 +99,49 @@ export default {
 .NavBar-top {
   /* border-bottom-right-radius: 80%;
   border-bottom-left-radius: 80%; */
+  background-color: #fff;
   height: 60px;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 10000;
 }
+.content {
+  cursor: pointer;
+}
 .NavBar-bottom {
-  /* border-bottom-right-radius: 80%;
-  border-bottom-left-radius: 80%; */
-  height: 60px;
+  cursor: pointer;
+  height: 50px;
   width: 100%;
   position: fixed;
   bottom: 0;
   z-index: 10000;
+  background-color: #fff;
+}
+.search-right {
+  border-top: solid 3px white;
+  background-color: #fff;
+}
+
+.info-left {
+  border-top: solid 3px white;
+  background-color: #fff;
+}
+.nb.active {
+  transition: all 0.3s linear;
+  border-top: solid 3px #ff5e3a;
+}
+.search-right-top {
+  border-bottom: solid 3px white;
+  background-color: #fff;
+}
+.info-left-top {
+  border-bottom: solid 3px white;
+  background-color: #fff;
+}
+.nb.active-top {
+  transition: all 0.3s linear;
+  border-bottom: solid 3px #ff5e3a;
 }
 .img-fluid-mine {
   width: 55px;
