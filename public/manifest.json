@@ -3,10 +3,9 @@
     "name": "Livid-19",
     "lang": "en",
     "description": "created by : Tag",
-    "start_url": "/",
+    "start_url": "./index.html",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
-    // "dir": "ltr",
     "display": "standalone",
     "orientation": "portrait-primary",
     "icons": [{
