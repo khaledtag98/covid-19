@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <NavBar />
     <Sammary />
     <StaySafe />
+    <NavBar />
   </div>
 </template>
 
@@ -29,6 +29,14 @@ body {
   background-color: #fdf8f5 !important;
   /* background: rgb(0,168,255);
 background: radial-gradient(circle, rgba(0,168,255,1) 2%, rgba(8,51,179,1) 68%, rgba(0,45,176,1) 89%); */
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+body {
+  -ms-overflow-style: none;
 }
 /* reseting */
 p {
