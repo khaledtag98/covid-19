@@ -15,9 +15,11 @@
             <div class="info">
               <div class="eeer">
                 <p class="new-cases">{{todaySelectdCountry}}</p>
-                <span :id="divId">
+                <!-- :class="{'green':green,'red':red}" -->
+                <span :class="{'green':green,'red':red}" :id="divId">
                   <img :id="arrowId" class="arrow" :src="Arrow" alt />
-                  {{ notUpdated ? 'not updated' : changeTracker(todaySelectdCountry ,yesterdaySelectdCountry)}}
+                  <fa-icon :icon="['fas','arrow-up']" size="lg" :rotation="rotate" />
+                  {{calc(todaySelectdCountry,yesterdaySelectdCountry)}}
                 </span>
               </div>
               <div>
@@ -50,9 +52,13 @@
           <div class="info">
             <div class="eeer">
               <p class="new-cases">{{todaydayWorldWidey}}</p>
-              <span :id="divId">
+              <span :class="{'green':green,'red':red}" :id="divId">
                 <img :id="arrowId" class="arrow" :src="Arrow" alt />
-                {{ notUpdated ? 'not updated' : changeTracker(todaydayWorldWidey ,yesterdayWorldWidey)}}
+                <span id="arrow" >
+                  <!-- :class="{'arrow-down':isDown}" -->
+                  <fa-icon :icon="['fas','arrow-up']" size="lg" :rotation="rotate" />
+                </span>
+                {{calc(todaydayWorldWidey,yesterdayWorldWidey)}}
               </span>
             </div>
 
@@ -69,6 +75,12 @@
   </div>
 </template>
 <style scoped>
+.green {
+  color: #32e4d0;
+}
+.red {
+  color: #ff5e3a;
+}
 .cart {
   background-color: white;
 }
@@ -200,11 +212,9 @@ export default {
   data() {
     return {
       Arrow: "",
-      difference: 0,
-      todayVal: "",
-      yesterdayVal: "",
-      notUpdated: false,
-      width:window.innerWidth,
+      green: false,
+      red: false,
+      rotate:null,
     };
   },
   computed: {
@@ -221,7 +231,6 @@ export default {
     }
   },
   mounted: function() {
-    this.test();
     this.smallCart();
   },
   methods: {
@@ -258,30 +267,23 @@ export default {
           .removeClass("col-6");
       }
     },
-    changeTracker: function(newVal, oldVal) {
-      this.todayVal = newVal;
-      this.yesterdayVal = oldVal;
-      this.difference = newVal - oldVal;
-      return Math.abs(this.difference);
-    },
-    test: function() {
-      this.notUpdated = false;
-      let test = document.querySelector("#" + this.divId);
-      if (this.todayVal < this.yesterdayVal && this.todayVal != 0) {
-        test.style.color = "#32e4cd";
-        this.Arrow = "/assets/arrowDown.svg";
-      } else if (this.todayVal > this.yesterdayVal && this.todayVal != 0) {
-        test.style.color = "#ff5e3a";
-        this.Arrow = "/assets/arrowUp.svg";
-      } else if (this.todayVal === 0) {
-        this.notUpdated = true;
+
+    calc: function(todayVal, yesterdayVal) {
+      
+      let res = todayVal - yesterdayVal;
+      if (res > 0 && todayVal != 0) {
+        this.green = false;
+        this.red = true;
+        console.log("------------------- red ---------------------");
+        return res;
+      } else {
+        this.green = true;
+        this.red = false;
+        this.rotate = 180 ;
+        console.log("------------------- green ---------------------");
+        return res * -1;
       }
     }
-  },
-  watch: {
-    dataReceived: function() {
-      this.test();
-    },
   }
 };
 </script>

@@ -29,7 +29,10 @@
         :class="{'active':infoAcitve}"
         class="nb info-left w-50 d-flex justify-content-center align-items-center"
       >
-        <div class="content text-center"><fa-icon :icon="['fas','info']" /><span class="d-block">info</span></div>
+        <div class="content text-center">
+          <fa-icon :icon="['fas','info']" />
+          <span class="d-block">info</span>
+        </div>
       </div>
     </div>
   </section>
@@ -40,34 +43,30 @@
 export default {
   name: "NavBar",
   data() {
-    return {
-
-    };
+    return {};
   },
-  computed:{
-    searchAcitve(){
+  computed: {
+    searchAcitve() {
       return this.$store.state.searchAcitve;
     },
-    infoAcitve(){
-     return this.$store.state.infoAcitve;
+    infoAcitve() {
+      return this.$store.state.infoAcitve;
     }
   },
   mounted: function() {},
   methods: {
-    checkSearch:function(){
-      this.$store.commit('checkSearch')
+    checkSearch: function() {
+      this.$store.commit("checkSearch");
     },
-    checkInfo:function(){
-      this.$store.commit('checkInfo')
+    checkInfo: function() {
+      this.$store.commit("checkInfo");
     },
-    isMobile:function(){
-      if(window.matchMedia("(max-width: 786px)").matches)
-      {
+    isMobile: function() {
+      if (window.matchMedia("(max-width: 786px)").matches) {
         return true;
-      }
-      else return false;
-    },
-    
+      } else return false;
+    }
+
     // checkSearch: function() {
     //   this.searchAcitve = true;
     //   this.infoAcitve = false;

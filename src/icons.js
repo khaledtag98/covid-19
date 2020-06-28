@@ -8,7 +8,8 @@ import {
 // fas to import all icons (not recommended)
 import {
     faSearch,
-    faInfo
+    faInfo,
+    faArrowUp
 } from "@fortawesome/free-solid-svg-icons"
 import {
     faFacebookSquare,
@@ -17,5 +18,5 @@ import {
 
 
 
-library.add(faFacebookSquare, faLinkedin, faSearch, faInfo)
+library.add(faFacebookSquare, faLinkedin, faSearch, faInfo, faArrowUp)
 Vue.component('fa-icon', FontAwesomeIcon)

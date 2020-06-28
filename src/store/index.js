@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
         isReady: false,
         isEgy: true,
-        searchAcitve: false,
+        searchAcitve: true,
         infoAcitve: false
     },
     mutations: {

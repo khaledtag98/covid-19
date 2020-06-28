@@ -4,68 +4,68 @@
       :divId="divId1"
       :arrowId="arrowId1"
       :header="Header1"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.todayDeaths"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.todayDeaths"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.todayDeaths"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.todayDeaths"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
     <Cart
       :divId="divId2"
       :arrowId="arrowId2"
       :header="Header2"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.todayRecovered"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.todayRecovered"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.todayRecovered"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.todayRecovered"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
     <Cart
       :divId="divId3"
       :arrowId="arrowId3"
       :header="Header3"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.todayCases"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.todayCases"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.todayCases"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.todayCases"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
 
     <Cart
       :divId="divId6"
       :arrowId="arrowId6"
       :header="Header6"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.cases"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.cases"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.cases"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.cases"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
     <Cart
       :divId="divId4"
       :arrowId="arrowId4"
       :header="Header4"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.deaths"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.deaths"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.deaths"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.deaths"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
     <Cart
       :divId="divId5"
       :arrowId="arrowId5"
       :header="Header5"
-      :dataReceived="this.$parent.selectedCountryToday"
       :todaySelectdCountry="this.$parent.selectedCountryToday.recovered"
       :yesterdaySelectdCountry="this.$parent.selectedCountryYesterday.recovered"
       :WorldWidey="this.$parent.WorldWideToday"
       :todaydayWorldWidey="this.$parent.WorldWideToday.recovered"
       :yesterdayWorldWidey="this.$parent.WorldWideYesterday.recovered"
+      :dataReceived="this.$parent.selectedCountryToday"
     />
   </div>
 </template>
