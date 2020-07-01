@@ -9,7 +9,8 @@ import {
 import {
     faSearch,
     faInfo,
-    faArrowUp
+    faArrowUp,
+
 } from "@fortawesome/free-solid-svg-icons"
 import {
     faFacebookSquare,

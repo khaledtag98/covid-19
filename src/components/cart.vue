@@ -76,120 +76,154 @@
 </template>
 <style scoped>
 .green {
-  color: #32e4d0;
+    color: #32e4d0;
 }
+
 .red {
-  color: #ff5e3a;
+    color: #ff5e3a;
 }
+
 .cart {
-  background-color: white;
+    background-color: white;
 }
+
 .cart .cart-inner {
-  padding: 10px 30px;
+    padding: 10px 30px;
 }
+
 .cart-inner .head {
-  font-size: 14px;
-  font-weight: 600;
+    font-size: 14px;
+    font-weight: 600;
 }
+
 .my-4-mine {
-  margin-top: 1.5rem !important;
-  margin-bottom: 1.5rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
 }
+
 .loading {
-  position: relative;
-  height: 18px;
-  margin-bottom: 4px;
-  border-radius: 6.5px;
-  background-color: #dddddd;
-  overflow: hidden;
+    position: relative;
+    height: 18px;
+    margin-bottom: 4px;
+    border-radius: 6.5px;
+    background-color: #dddddd;
+    overflow: hidden;
 }
+
 .loading::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background: rgb(131, 58, 180);
-  background: linear-gradient(
-    90deg,
-    rgba(131, 58, 180, 0) 0%,
-    rgb(236, 236, 236) 50%,
-    rgba(230, 134, 0, 0) 100%
-  );
-  animation: shine-lines 1s infinite linear;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: rgb(131, 58, 180);
+    background: linear-gradient( 90deg, rgba(131, 58, 180, 0) 0%, rgb(236, 236, 236) 50%, rgba(230, 134, 0, 0) 100%);
+    -webkit-animation: shine-lines 1s infinite linear;
+            animation: shine-lines 1s infinite linear;
 }
+
+@-webkit-keyframes shine-lines {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 @keyframes shine-lines {
-  100% {
-    transform: translateX(100%);
-  }
+    100% {
+        transform: translateX(100%);
+    }
 }
+
+@-webkit-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @keyframes fadein {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
+
 .show-data {
-  animation: fadein 1s;
+    -webkit-animation: fadein 1s;
+            animation: fadein 1s;
 }
+
 .cart-inner .info {
-  display: flex;
-  height: 54px;
-  justify-content: space-between;
+    display: flex;
+    height: 54px;
+    justify-content: space-between;
 }
+
 .cart-inner .new-cases {
-  display: inline-block;
-  color: #d22023;
-  font-weight: 500;
-  vertical-align: baseline;
-  font-size: 25px;
+    display: inline-block;
+    color: #d22023;
+    font-weight: 500;
+    vertical-align: baseline;
+    font-size: 25px;
 }
+
 .cart-inner .info .yesterday-cases {
-  font-size: 13px;
+    font-size: 13px;
 }
+
 .cart-inner .info .yesterday-cases span {
-  color: black;
-  font-size: 16px;
+    color: black;
+    font-size: 16px;
 }
+
 .info span {
-  font-size: 12px;
-  font-weight: 700;
-  vertical-align: baseline;
-  margin-left: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    vertical-align: baseline;
+    margin-left: 5px;
 }
+
 .arrow {
-  width: 13px;
-  height: 13px;
-  vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
 }
+
 .eeer {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
 .text-recovered {
-  color: #11c019;
-  font-weight: 600;
-  font-size: 22px;
+    color: #11c019;
+    font-weight: 600;
+    font-size: 22px;
 }
+
 .text-Deaths {
-  color: #dc3545;
-  font-weight: 600;
-  font-size: 22px;
+    color: #dc3545;
+    font-weight: 600;
+    font-size: 22px;
 }
+
+
 /* @media (min-width: 768px) and (max-width: 992px) {
-  .cart .cart-inner {
-    padding: 10px 10px;
-  }
-} */
+    .cart .cart-inner {
+      padding: 10px 10px;
+    }
+  } */
+
 @media (max-width: 768px) {
-  .my-4-mine {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
+    .my-4-mine {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
 }
 </style>
 <script>
