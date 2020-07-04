@@ -1,5 +1,5 @@
 <template>
-  <section id="footer">
+  <section id="footer" class="d-none d-sm-block">
     <div class="container">
       <div class="row">
         <div class="col-12">

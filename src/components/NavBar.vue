@@ -1,9 +1,9 @@
 <template>
   <section>
-    <div v-if="!isMobile()">
+    <div >
       <Footer />
     </div>
-    <div v-else id="act" class="d-flex justify-content-between NavBar-bottom">
+    <div  id="act" class="d-flex justify-content-between NavBar-bottom d-sm-none d-block" >
       <div
         @click="checkSearch()"
         :class="{'active':searchAcitve}"
@@ -55,20 +55,8 @@ export default {
     checkInfo: function() {
       this.$store.commit("checkInfo");
     },
-    isMobile: function() {
-      if (window.matchMedia("(max-width: 786px)").matches) {
-        return true;
-      } else return false;
-    }
 
-    // checkSearch: function() {
-    //   this.searchAcitve = true;
-    //   this.infoAcitve = false;
-    // },
-    // checkInfo: function() {
-    //   this.searchAcitve = false;
-    //   this.infoAcitve = true;
-    // }
+  
   }
 };
 </script>
