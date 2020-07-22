@@ -1,7 +1,7 @@
 <template>
   <section>
     <div >
-      <Footer />
+      <!-- <Footer /> -->
     </div>
     <div  id="act" class="d-flex justify-content-between NavBar-bottom d-sm-none d-block" >
       <div
@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
+// import Footer from '@/components/Footer.vue';
 export default {
   name: "NavBar",
   components:{
-    Footer
+    // Footer
   },
   data() {
     return {};
