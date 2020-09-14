@@ -1,5 +1,5 @@
 <template>
-  <div class="تيحا مصر ">
+  <div class="تحيا مصر">
     <div class="container">
       <div class="row flex align-items-center justify-content-center">
         <div class="col-4">

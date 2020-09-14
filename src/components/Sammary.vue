@@ -14,9 +14,9 @@
             :labelTitle="labelTitle"
           />
         </div>
-        <div class="row">
-          <DarkMode />
-        </div>
+      </div>
+      <div class="row justify-content-end">
+        <DarkMode />
       </div>
     </div>
     <div class="" :class="[{ 'bg-eg ': isEgy }, { container: !isEgy }]">
