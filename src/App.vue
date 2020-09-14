@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <DarkMode />
     <Sammary />
     <StaySafe />
     <NavBar />
@@ -10,14 +9,12 @@
 <script>
 import Sammary from "@/components/Sammary.vue";
 import NavBar from "@/components/NavBar.vue";
-import DarkMode from "@/components/DarkMode.vue";
 import StaySafe from "@/components/staySafe.vue";
 export default {
   name: "App",
   components: {
     Sammary,
     NavBar,
-    DarkMode,
     StaySafe
   }
 };

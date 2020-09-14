@@ -1,11 +1,7 @@
 <template>
   <section class="hero">
-    <p class="hero-head text-center mt-5">
-      Livid-<span>19</span>
-    </p>
-    <p class="hero-slogan text-center mt-1">
-      <span>Real Time</span> Update
-    </p>
+    <p class="hero-head text-center mt-5">Livid-<span>19</span></p>
+    <p class="hero-slogan text-center mt-1"><span>Real Time</span> Update</p>
     <p class="hero-info text-center mt-4 text-muted">
       <span v-text="totalCases"></span> person around the
       <span>world</span> have been infected with corona virus.

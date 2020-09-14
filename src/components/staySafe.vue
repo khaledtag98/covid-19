@@ -24,7 +24,8 @@
               <div class="description">
                 <p>
                   Between people who are in close contact with one another
-                  Through respiratory droplets produced when an infected person coughs, sneezes or talks.
+                  Through respiratory droplets produced when an infected person
+                  coughs, sneezes or talks.
                 </p>
               </div>
             </div>
@@ -42,8 +43,9 @@
                 </li>
                 <li class="description">
                   <p>
-                    Avoid close contact with people who are sick, even inside your home. If possible,
-                     maintain 6 feet between the person who is sick and other household members.
+                    Avoid close contact with people who are sick, even inside
+                    your home. If possible, maintain 6 feet between the person
+                    who is sick and other household members.
                   </p>
                 </li>
               </ul>
@@ -62,8 +64,9 @@
                 </li>
                 <li class="description">
                   <p>
-                    Wash your hands often with soap and water for at least 20 seconds especially after 
-                    you have been in a public place, or after blowing your nose, coughing, or sneezing.
+                    Wash your hands often with soap and water for at least 20
+                    seconds especially after you have been in a public place, or
+                    after blowing your nose, coughing, or sneezing.
                   </p>
                 </li>
               </ul>
@@ -82,8 +85,10 @@
                 </li>
                 <li class="description">
                   <p>
-                    Clean AND disinfect frequently touched surfaces daily. This includes tables, doorknobs,
-                     light switches, countertops, handles, desks, phones, keyboards, toilets, faucets, and sinks.
+                    Clean AND disinfect frequently touched surfaces daily. This
+                    includes tables, doorknobs, light switches, countertops,
+                    handles, desks, phones, keyboards, toilets, faucets, and
+                    sinks.
                   </p>
                 </li>
               </ul>
@@ -102,8 +107,10 @@
                 </li>
                 <li class="description">
                   <p>
-                    If you are around others and do not have on your cloth face covering, remember to always 
-                    cover your mouth and nose with a tissue when you cough or sneeze or use the inside of your elbow and do not spit.
+                    If you are around others and do not have on your cloth face
+                    covering, remember to always cover your mouth and nose with
+                    a tissue when you cough or sneeze or use the inside of your
+                    elbow and do not spit.
                   </p>
                 </li>
               </ul>
@@ -114,8 +121,6 @@
     </div>
   </section>
 </template>
-
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap");
@@ -133,15 +138,13 @@
   color: #848484;
   font-size: 22px;
 }
-.mt-mine
-{
-  margin-top: 1.35rem!important;
-  margin-bottom: 1.35rem!important;
+.mt-mine {
+  margin-top: 1.35rem !important;
+  margin-bottom: 1.35rem !important;
 }
-.mt-spreads
-{
-  margin-top: 0.35rem!important;
-  margin-bottom: 0.35rem!important;
+.mt-spreads {
+  margin-top: 0.35rem !important;
+  margin-bottom: 0.35rem !important;
 }
 #staySafe .content img {
   max-width: 25%;
@@ -211,7 +214,6 @@
   }
 }
 </style>
-
 
 <script>
 export default {};

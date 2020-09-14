@@ -2,7 +2,7 @@
   <div class="col-lg-4 col-md-6 col-12 my-4-mine fade-mine">
     <div class="cart shadow-sm rounded-lg">
       <div class="cart-inner" v-if="dataReceived">
-        <div v-if="isEgy">
+        <div >
           <div v-if="TotalCart">
             <div class="head text-center mb-3 text-muted" v-text="header"></div>
             <p
@@ -31,12 +31,7 @@
             </div>
           </div>
         </div>
-        <EgyTheme
-          v-else
-          :header="header"
-          :todayDataInfo="todaySelectdCountry"
-          :yesterdayDataInfo="yesterdaySelectdCountry"
-        />
+        
       </div>
 
       <div class="cart-inner" v-if="!dataReceived">
@@ -227,12 +222,9 @@
 }
 </style>
 <script>
-import EgyTheme from "@/components/EgyTheme.vue";
+
 import $ from "jquery";
 export default {
-  components: {
-    EgyTheme
-  },
   props: [
     "dataReceived",
     "todaySelectdCountry",
@@ -260,9 +252,7 @@ export default {
     isReady() {
       return this.$store.state.isReady;
     },
-    isEgy() {
-      return this.$store.state.isEgy;
-    }
+    
   },
   mounted: function() {
     this.smallCart();
@@ -308,13 +298,13 @@ export default {
       if (res > 0 && todayVal != 0) {
         this.green = false;
         this.red = true;
-        console.log("------------------- red ---------------------");
+        // console.log("------------------- red ---------------------");
         return res;
       } else {
         this.green = true;
         this.red = false;
         this.rotate = 180 ;
-        console.log("------------------- green ---------------------");
+        // console.log("------------------- green ---------------------");
         return res * -1;
       }
     }

@@ -1,5 +1,4 @@
-
-        <!-- <nav v-if="!isMobile()" id="act" class="d-flex justify-content-between NavBar-top">
+<!-- <nav v-if="!isMobile()" id="act" class="d-flex justify-content-between NavBar-top">
       <div
         @click="checkSearch()"
         :class="{'active-top':searchAcitve}"

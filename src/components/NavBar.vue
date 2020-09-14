@@ -1,27 +1,29 @@
 <template>
   <section>
-    <div >
+    <div>
       <!-- <Footer /> -->
     </div>
-    <div  id="act" class="d-flex justify-content-between NavBar-bottom d-sm-none d-block" >
+    <div
+      id="act"
+      class="d-flex justify-content-between NavBar-bottom d-sm-none d-block"
+    >
       <div
         @click="checkSearch()"
-        :class="{'active':searchAcitve}"
+        :class="{ active: searchAcitve }"
         class="nb search-right w-50 d-flex justify-content-center align-items-center"
       >
-      <div class="content text-center">
-          <fa-icon :icon="['fas','search']" />
+        <div class="content text-center">
+          <fa-icon :icon="['fas', 'search']" />
           <div class="content">Search</div>
         </div>
-        
       </div>
       <div
         @click="checkInfo()"
-        :class="{'active':infoAcitve}"
+        :class="{ active: infoAcitve }"
         class="nb info-left w-50 d-flex justify-content-center align-items-center"
       >
         <div class="content text-center">
-          <fa-icon :icon="['fas','info']" />
+          <fa-icon :icon="['fas', 'info']" />
           <span class="d-block">info</span>
         </div>
       </div>
@@ -33,7 +35,7 @@
 // import Footer from '@/components/Footer.vue';
 export default {
   name: "NavBar",
-  components:{
+  components: {
     // Footer
   },
   data() {
@@ -54,94 +56,92 @@ export default {
     },
     checkInfo: function() {
       this.$store.commit("checkInfo");
-    },
-
-  
+    }
   }
 };
 </script>
 
 <style scoped>
 .live {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .live span {
-    font-size: 16px;
-    font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .live-circle {
-    background-color: rgb(50, 228, 205);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+  background-color: rgb(50, 228, 205);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 .NavBar-top {
-    /* border-bottom-right-radius: 80%;
+  /* border-bottom-right-radius: 80%;
     border-bottom-left-radius: 80%; */
-    background-color: #fff;
-    height: 60px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 10000;
+  background-color: #fff;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10000;
 }
 
 .content {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .NavBar-bottom {
-    cursor: pointer;
-    height: 50px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    z-index: 10000;
-    background-color: #fff;
+  cursor: pointer;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10000;
+  background-color: #fff;
 }
 
 .search-right {
-    border-top: solid 3px white;
-    background-color: #fff;
+  border-top: solid 3px white;
+  background-color: #fff;
 }
 
 .info-left {
-    border-top: solid 3px white;
-    background-color: #fff;
+  border-top: solid 3px white;
+  background-color: #fff;
 }
 
 .nb.active {
-    transition: all 0.3s linear;
-    border-top: solid 3px #ff5e3a;
+  transition: all 0.3s linear;
+  border-top: solid 3px #ff5e3a;
 }
 
 .search-right-top {
-    border-bottom: solid 3px white;
-    background-color: #fff;
+  border-bottom: solid 3px white;
+  background-color: #fff;
 }
 
 .info-left-top {
-    border-bottom: solid 3px white;
-    background-color: #fff;
+  border-bottom: solid 3px white;
+  background-color: #fff;
 }
 
 .nb.active-top {
-    transition: all 0.3s linear;
-    border-bottom: solid 3px #ff5e3a;
+  transition: all 0.3s linear;
+  border-bottom: solid 3px #ff5e3a;
 }
 
 .img-fluid-mine {
-    width: 55px;
-    transform: scaleX(-1);
+  width: 55px;
+  transform: scaleX(-1);
 }
 
 p {
-    font-size: 13px;
-    font-weight: 600;
-    color: #ff5e3a;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff5e3a;
 }
 </style>

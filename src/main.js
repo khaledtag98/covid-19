@@ -9,6 +9,6 @@ import "./js/js.js";
 import "./icons.js";
 Vue.config.productionTip = false;
 new Vue({
-    store,
-    render: h => h(App)
+  store,
+  render: h => h(App)
 }).$mount("#app");

@@ -6,14 +6,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         isReady: false,
-        isEgy: true,
+        isEgy: false,
         searchAcitve: true,
         infoAcitve: false
     },
     mutations: {
-        // toggleyisEgy(state) {
-        //     state.isEgy = !state.isEgy
-        // }
+        toggleyisEgy(state) {
+            state.isEgy = !state.isEgy
+        },
         checkSearch(state) {
             state.searchAcitve = true;
             state.infoAcitve = false;

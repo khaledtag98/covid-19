@@ -7,21 +7,29 @@
     <div class="container">
       <div class="row my-5">
         <div class="col-md-4 col-sm-6 col-12 m-auto">
-          <v-select v-model="select" :searchable="true" :options="list" :labelTitle="labelTitle" />
+          <v-select
+            v-model="select"
+            :searchable="true"
+            :options="list"
+            :labelTitle="labelTitle"
+          />
+        </div>
+        <div class="row">
+          <DarkMode />
         </div>
       </div>
-
-      <button
-        v-if="selectedCountryToday && selectedCountryToday.country == 'Egypt'"
-        class="btn btn-primary"
-        @click="toggleyisEgy()"
-      >Egypt theme</button>
-      <cartContainer v-if="isReady" />
+    </div>
+    <div class="" :class="[{ 'bg-eg ': isEgy }, { container: !isEgy }]">
+      <cardContainer v-if="isReady" />
 
       <div v-else class="row">
-        <div v-for="index in 6" :key="index" class="col-md-4 col-sm-6 col-12 my-4 fade-mine">
-          <div class="cart shadow-sm rounded-lg">
-            <div class="cart-inner">
+        <div
+          v-for="index in 6"
+          :key="index"
+          class="col-md-4 col-sm-6 col-12 my-4 fade-mine"
+        >
+          <div class="card shadow-sm rounded-lg">
+            <div class="card-inner">
               <div class="loading mb-3"></div>
               <div class="mb-2">
                 <div class="loading w-75"></div>
@@ -39,7 +47,8 @@
 
 <script>
 import Hero from "@/components/Hero.vue";
-import cartContainer from "@/components/cartContainer.vue";
+import cardContainer from "@/components/cardContainer.vue";
+import DarkMode from "@/components/DarkMode.vue";
 import VSelect from "@alfsnd/vue-bootstrap-select";
 import axios from "axios";
 export default {
@@ -47,7 +56,8 @@ export default {
   components: {
     VSelect,
     Hero,
-    cartContainer
+    cardContainer,
+    DarkMode,
   },
   data() {
     return {
@@ -60,7 +70,7 @@ export default {
       WorldWideToday: "",
       WorldWideYesterday: "",
       yesterdayResponse: "",
-      flag: null
+      flag: null,
     };
   },
   computed: {
@@ -69,18 +79,15 @@ export default {
     },
     isEgy() {
       return this.$store.state.isEgy;
-    }
+    },
   },
   methods: {
-    toggleyisEgy:function(){
-      this.$store.commit('toggleyisEgy');
-    },
     displayCountryToday: function() {
-      let obj = this.todayResponse.find(o => o.country === this.select);
+      let obj = this.todayResponse.find((o) => o.country === this.select);
       return obj;
     },
     displayCountryYesterday: function() {
-      let obj = this.yesterdayResponse.find(o => o.country === this.select);
+      let obj = this.yesterdayResponse.find((o) => o.country === this.select);
       return obj;
     },
     query: function() {
@@ -88,7 +95,7 @@ export default {
       vm.$store.state.isReady = false;
       axios
         .get("https://disease.sh/v2/countries?")
-        .then(Response => {
+        .then((Response) => {
           vm.todayResponse = Response.data;
 
           let length = vm.todayResponse.length;
@@ -97,16 +104,16 @@ export default {
           }
           axios
             .get("https://disease.sh/v2/countries?yesterday=true")
-            .then(Response => {
+            .then((Response) => {
               vm.yesterdayResponse = Response.data;
               axios
                 .get("https://disease.sh/v2/all")
-                .then(Response => {
+                .then((Response) => {
                   vm.WorldWideToday = Response.data;
 
                   axios
                     .get("https://disease.sh/v2/all?yesterday=true")
-                    .then(Response => {
+                    .then((Response) => {
                       vm.WorldWideYesterday = Response.data;
 
                       vm.$store.state.isReady = true;
@@ -126,13 +133,13 @@ export default {
         .catch(function(error) {
           alert(error);
         });
-    }
+    },
   },
   mounted: function() {
     let vm = this;
     vm.query();
     setInterval(function() {
-      vm.query()
+      vm.query();
     }, 600000);
   },
   watch: {
@@ -140,17 +147,16 @@ export default {
       this.selectedCountryToday = this.displayCountryToday();
       this.selectedCountryYesterday = this.displayCountryYesterday();
       // this.flag = this.selectedCountry.countryInfo.flag;
-    }
-  }
+    },
+  },
 };
 </script>
 
-
 <style scoped>
-.cart {
+.card {
   background-color: white;
 }
-.cart .cart-inner {
+.card .card-inner {
   padding: 10px 30px;
 }
 .loading {
@@ -210,5 +216,18 @@ export default {
   100% {
     box-shadow: 0 0 0 40px rgba(0, 0, 0, 0);
   }
+}
+.bg-eg {
+  background: #0575e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #021b79,
+    #0575e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #021b79,
+    #0575e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>
