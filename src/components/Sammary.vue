@@ -59,11 +59,11 @@ export default {
     cardContainer,
     DarkMode,
   },
-  data() {
+  data:function() {
     return {
       select: null,
-      list: [],
-      labelTitle: "search ...",
+      list: ["World wide"],
+      labelTitle: "Choose a country ...",
       todayResponse: [],
       selectedCountryToday: "",
       selectedCountryYesterday: "",
@@ -84,11 +84,19 @@ export default {
   methods: {
     displayCountryToday: function() {
       let obj = this.todayResponse.find((o) => o.country === this.select);
-      return obj;
+      if (this.select === this.list[0]) {
+        return this.WorldWideToday;
+      } else {
+        return obj;
+      }
     },
     displayCountryYesterday: function() {
       let obj = this.yesterdayResponse.find((o) => o.country === this.select);
-      return obj;
+      if (this.select === this.list[0]) {
+        return this.WorldWideYesterday;
+      } else {
+        return obj;
+      }
     },
     query: function() {
       let vm = this;
@@ -146,6 +154,12 @@ export default {
     select: function() {
       this.selectedCountryToday = this.displayCountryToday();
       this.selectedCountryYesterday = this.displayCountryYesterday();
+      if (
+        this.selectedCountryToday != "Egypt" ||
+        this.selectedCountryYesterday != "Egypt"
+      ) {
+        this.$store.state.isEgy = false;
+      }
       // this.flag = this.selectedCountry.countryInfo.flag;
     },
   },

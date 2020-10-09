@@ -1,5 +1,7 @@
 <template>
-  <div class="col-xl-4 col-lg-6 align-self-center col-md-6 col-12 my-4-mine fade-mine">
+  <div
+    class="col-xl-4 col-lg-6 align-self-center col-md-6 col-12 my-4-mine fade-mine"
+  >
     <div class="cart shadow-sm rounded-lg">
       <div class="cart-inner" v-if="dataReceived">
         <div>
@@ -22,28 +24,37 @@
             <div class="head text-muted" v-text="header"></div>
             <div class="info">
               <div class="eeer">
-                <p class="new-cases">{{ todaySelectdCountry }}</p>
+                <p
+                  v-if="removeAnalysis"
+                  v-text="msg"
+                  class="badge badge-warning"
+                ></p>
+                <p v-else class="new-cases">
+                  {{ todaySelectdCountry }}
+                </p>
                 <!-- :class="{'green':green,'red':red}" -->
-                <span
-                  v-if="!IsTodayRecovered"
-                  :class="{ green: green, red: red }"
-                  :id="divId"
-                >
-                  <fa-icon
-                    :icon="['fas', 'arrow-up']"
-                    size="lg"
-                    :rotation="rotate"
-                  />
-                  {{ calc(todaySelectdCountry, yesterdaySelectdCountry) }}
-                </span>
-                <span v-else :class="{ green: red, red: green }" :id="divId">
-                  <fa-icon
-                    :icon="['fas', 'arrow-up']"
-                    size="lg"
-                    :rotation="rotate"
-                  />
-                  {{ calc(todaySelectdCountry, yesterdaySelectdCountry) }}
-                </span>
+                <div v-if="!removeAnalysis">
+                  <span
+                    v-if="!IsTodayRecovered"
+                    :class="{ green: green, red: red }"
+                    :id="divId"
+                  >
+                    <fa-icon
+                      :icon="['fas', 'arrow-up']"
+                      size="lg"
+                      :rotation="rotate"
+                    />
+                    {{ calc(todaySelectdCountry, yesterdaySelectdCountry) }}
+                  </span>
+                  <span v-else :class="{ green: red, red: green }" :id="divId">
+                    <fa-icon
+                      :icon="['fas', 'arrow-up']"
+                      size="lg"
+                      :rotation="rotate"
+                    />
+                    {{ calc(todaySelectdCountry, yesterdaySelectdCountry) }}
+                  </span>
+                </div>
               </div>
               <div>
                 <p class="yesterday-cases text-muted">
@@ -52,7 +63,7 @@
                 </p>
               </div>
             </div>
-            <div class="my-2">
+            <div v-if="!removeAnalysis" class="my-2">
               <p v-if="!IsTodayRecovered" class="font-size text-muted">
                 {{ header }}
                 <span :class="{ green: green, red: red }">{{ status }}</span>
@@ -136,7 +147,7 @@
                 </p>
               </div>
             </div>
-            <div class="my-2">
+            <div v-if="!removeAnalysis" class="my-2">
               <p v-if="!IsTodayRecovered" class="font-size text-muted">
                 {{ header }}
                 <span :class="{ green: green, red: red }">{{ status }}</span>
@@ -266,7 +277,6 @@
 
 .cart-inner .new-cases {
   display: inline-block;
-  color: #d22023;
   font-weight: 500;
   vertical-align: baseline;
   font-size: 25px;
@@ -337,13 +347,15 @@ export default {
     "divId",
     "arrowId",
   ],
-  data() {
+  data: function() {
     return {
       IsTodayRecovered: Boolean,
       green: false,
       red: false,
       rotate: null,
       status: "",
+      removeAnalysis: false,
+      msg: "",
     };
   },
   computed: {
@@ -403,27 +415,56 @@ export default {
       let res = todayVal - yesterdayVal;
       // today > yesterday
       if (res > 0 && todayVal != 0) {
+        this.removeAnalysis = false;
         this.green = false;
         this.red = true;
+        this.rotate = 0;
         return res;
-      }
-      // yesterday > today
-      else {
+      } else if (res < 0 && todayVal != 0 && yesterdayVal != 0) {
+        this.removeAnalysis = false;
         this.green = true;
         this.red = false;
         this.rotate = 180;
-        return res * -1;
+        return res*-1;
+      } else if (
+        (todayVal == yesterdayVal && todayVal != 0 && yesterdayVal != 0) ||
+        (todayVal == 0 && yesterdayVal != 0 && yesterdayVal > todayVal)
+      ) {
+        this.removeAnalysis = true;
+        this.msg = "Not updated yet";
+      } else if (todayVal == 0 && yesterdayVal == 0) {
+        this.removeAnalysis = true;
+        this.msg = "No cases detected";
+      } else {
+        alert("errror");
       }
     },
     PersCalc: function(todayVal, yesterdayVal) {
       let res = todayVal - yesterdayVal;
-      if (res > 0) {
+      if (res > 0 && todayVal != 0) {
         this.status = "Increased";
         return Math.ceil((res / todayVal) * 100);
-      } else {
+      } else if (res < 0 && todayVal != 0 && yesterdayVal != 0) {
         this.status = "decreased";
         return Math.ceil((Math.abs(res) / yesterdayVal) * 100);
+      } else {
+        console.log("error");
       }
+    },
+  },
+  watch: {
+    dataReceived: {
+      handler() {
+        console.log(this.dataReceived.country);
+        if (this.dataReceived.country) {
+          this.calc(this.todaySelectdCountry, this.yesterdaySelectdCountry);
+          this.PersCalc(this.todaySelectdCountry, this.yesterdaySelectdCountry);
+        } else {
+          this.calc(this.todaydayWorldWidey, this.yesterdayWorldWidey);
+          this.PersCalc(this.todaydayWorldWidey, this.yesterdayWorldWidey);
+        }
+      },
+      deep: true,
     },
   },
 };
